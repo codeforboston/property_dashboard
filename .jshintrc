@@ -29,6 +29,8 @@
     "describeMixin",
     "expect",
     "it",
+    "spyOn",
+    "spyOnEvent",
     "requirejs",
     "setupComponent"
   ]
