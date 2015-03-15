@@ -64,5 +64,14 @@ describeMixin('component/with_SODA', function () {
         expect($.ajax.calls[0].args[0].data.c).toEqual('1');
       });
     });
+
+    describe('complex filtering', function() {
+      it('included as the $where attribute', function() {
+        this.component.querySODA('abcd-1234', {
+          where: 'a > b'
+        });
+        expect($.ajax.calls[0].args[0].data.$where).toEqual('a > b');
+      });
+    });
   });
 });

@@ -33,6 +33,9 @@ define(function (require) {
           }
         }
       }
+      if (params.where) {
+        data.$where = params.where;
+      }
       return $.getJSON(
         this.attr.SODABaseURI + '/resource/' + dataset + '.json',
         data);
