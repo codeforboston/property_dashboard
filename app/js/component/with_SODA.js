@@ -20,7 +20,6 @@ define(function (require) {
     this.querySODA = function querySODA(dataset, params) {
       params = params || {};
       var data = {
-        callback: '?'
       };
       if (params.select) {
         data.$select = params.select.join(',');
