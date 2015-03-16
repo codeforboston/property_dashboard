@@ -32,7 +32,8 @@ define(function (require) {
     };
 
     this.onSubmit = function onSubmit(ev) {
-      ev.preventDefault();
+      if (ev) { ev.preventDefault(); }
+
       this.trigger('uiSearch', {
         search: this.val()
       });
@@ -42,6 +43,8 @@ define(function (require) {
       this.on('click', {
         buttonSelector: this.onSubmit
       });
+      // submit the initial value
+      window.setTimeout(this.onSubmit.bind(this), 100);
     });
   }
 
