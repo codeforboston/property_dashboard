@@ -15,13 +15,15 @@ define(function (require) {
   function withRenderTable() {
     this.attributes({
       tableSelector: 'table',
-      fields: [],
-      formatters: {}
+      fields: function() { return []; },
+      formatters: function() { return {}; }
     });
 
     this.formatField = function formatField(field, value) {
       if (this.attr.formatters[field]) {
         value = this.attr.formatters[field](value);
+      } else if (typeof value === 'undefined') {
+        value = '';
       }
       return value;
     };

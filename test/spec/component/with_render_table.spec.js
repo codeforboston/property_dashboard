@@ -59,4 +59,15 @@ describeMixin('component/with_render_table', function () {
     expect(this.$node.find('tr').length).toEqual(3); // header + 2 rows
     expect(this.$node.find('td').length).toEqual(4); // 2 rows * 2 values
   });
+
+  it('undefined values are rendered as an empty string', function() {
+    this.component.setData([{}]);
+
+    var $values = this.$node.find('td'),
+        valueDisplays = $values.map(function(index, el) {
+          return el.innerText;
+        }).toArray();
+
+    expect(valueDisplays[0]).toEqual('');
+  });
 });
