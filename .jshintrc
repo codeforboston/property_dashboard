@@ -32,6 +32,7 @@
     "spyOn",
     "spyOnEvent",
     "requirejs",
-    "setupComponent"
+    "setupComponent",
+    "waits"
   ]
 }

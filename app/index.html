@@ -10,9 +10,37 @@
     <link rel="stylesheet" href="/css/main.css">
   </head>
   <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <div id="search">
+            <div class="form-group">
+              <label for="street_number">Number:</label>
+              <input id="street_number" type="text" class="form-control" value="347">
+            </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <label for="street">Street:</label>
+              <input id="street" type="text" class="form-control" value="Meridian St">
+            </div>
+          </div>
+          <div>
+            <div>
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    Hello world
-
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <div id="properties">
+            <table></table>
+          </div>
+        </div>
+      </div>
+    </div>
     <!--[if lt IE 9]>
     <script src="/bower_components/es5-shim/es5-shim.js"></script>
     <script src="/bower_components/es5-shim/es5-sham.js"></script>

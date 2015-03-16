@@ -6,7 +6,7 @@ define(function (require) {
    * Module dependencies
    */
 
-  // var MyComponent = require('component/my_component');
+  var Search = require('component/search');
 
   /**
    * Module exports
@@ -19,7 +19,7 @@ define(function (require) {
    */
 
   function initialize() {
-    // MyComponent.attachTo(document);
+    Search.attachTo('#search');
   }
 
 });
