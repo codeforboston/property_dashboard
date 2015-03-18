@@ -26,7 +26,7 @@ define(function (require) {
     }
     // get the date in local time by pretending it isn't ISO
     date = new Date(date.replace('T', ' '));
-    return date.toLocaleDateString();
+    return date.toLocaleDateString('en-US-u-latn-gregory');
   }
 
   function initialize() {
