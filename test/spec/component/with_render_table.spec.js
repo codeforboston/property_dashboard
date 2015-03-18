@@ -12,6 +12,8 @@ describeMixin('component/with_render_table', function () {
       }, {
         name: 'date',
         display: 'Date'
+      }, {
+        name: 'nodisplay'
       }],
       formatters: {
         date: function(value) {
@@ -25,13 +27,18 @@ describeMixin('component/with_render_table', function () {
     expect(this.component).toBeDefined();
   });
 
+  it('#fieldNames should return the names of the fields', function() {
+    expect(this.component.fieldNames()).toEqual(
+      ['name', 'date', 'nodisplay']);
+  });
+
   it('should render the headers', function() {
     var $headers = this.$node.find('th'),
         headerDisplays = $headers.map(function(index, el) {
           return el.innerText;
         }).toArray();
 
-    expect(headerDisplays).toEqual(['Display', 'Date']);
+    expect(headerDisplays).toEqual(['Display', 'Date', 'Nodisplay']);
   });
 
   it('should render data/formatted data', function() {
@@ -44,7 +51,7 @@ describeMixin('component/with_render_table', function () {
           return el.innerText;
         }).toArray();
 
-    expect(valueDisplays).toEqual(['name value', 'formatted value']);
+    expect(valueDisplays).toEqual(['name value', 'formatted value', '']);
   });
 
   it('can render multiple sets of data', function() {
@@ -57,17 +64,6 @@ describeMixin('component/with_render_table', function () {
     }]);
 
     expect(this.$node.find('tr').length).toEqual(3); // header + 2 rows
-    expect(this.$node.find('td').length).toEqual(4); // 2 rows * 2 values
-  });
-
-  it('undefined values are rendered as an empty string', function() {
-    this.component.setData([{}]);
-
-    var $values = this.$node.find('td'),
-        valueDisplays = $values.map(function(index, el) {
-          return el.innerText;
-        }).toArray();
-
-    expect(valueDisplays[0]).toEqual('');
+    expect(this.$node.find('td').length).toEqual(6); // 2 rows * 3 values
   });
 });

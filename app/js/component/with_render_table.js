@@ -19,6 +19,14 @@ define(function (require) {
       formatters: function() { return {}; }
     });
 
+    this.fieldNames = function fieldNames() {
+      var fields = [];
+      this.attr.fields.forEach(function(field) {
+        fields.push(field.name);
+      });
+      return fields;
+    };
+
     this.formatField = function formatField(field, value) {
       if (this.attr.formatters[field]) {
         value = this.attr.formatters[field](value);
@@ -40,7 +48,9 @@ define(function (require) {
         output.push('<tr>' + columns.join('') + '</tr>');
       }
       this.attr.fields.forEach(function(field) {
-        columns.push('<th>' + field.display + '</th>');
+        var display = field.display || (
+          field.name[0].toUpperCase() + field.name.slice(1));
+        columns.push('<th>' + display + '</th>');
       });
       appendRow(columns);
       this.data.forEach(function(row) {
