@@ -1,0 +1,142 @@
+/*global describe:true, beforeEach:true, it:true */
+
+var assert = require('assert');
+var helpers = require('yeoman-generator').test;
+var path = require('path');
+
+describe('Flight generator test', function () {
+
+  beforeEach(function (cb) {
+    helpers.testDirectory(path.join(__dirname, './temp'), function (err) {
+      if (err) cb(err);
+      cb();
+    });
+
+    helpers.assertGeneratorMakesExpected = function (generator, expected, cb) {
+      helpers.mockPrompt(generator, {
+        'normalize': 'Y'
+      });
+
+      generator.run([], function () {
+        helpers.assertFiles(expected);
+        cb();
+      });
+    };
+  });
+
+  describe('flight:app', function () {
+    var flight;
+
+    beforeEach(function (cb) {
+      var deps = ['../../lib/generators/app'];
+      flight = helpers.createGenerator('flight:app', deps, ['fooapp']);
+      flight.options['skip-install'] = true;
+      cb();
+    });
+
+    it('runs sucessfully', function () {
+      flight.run();
+    });
+
+    it('creates expected files', function (cb) {
+      var expected = [
+        // dotfiles
+        '.bowerrc',
+        '.gitignore',
+        '.gitattributes',
+        '.jshintrc',
+        '.travis.yml',
+        // config files
+        'bower.json',
+        'gulpfile.js',
+        'karma.conf.js',
+        'package.json',
+        // docs
+        'CHANGELOG.md',
+        'CONTRIBUTING.md',
+        //'LICENSE.md',
+        'README.md',
+        // app
+        'app/404.html',
+        'app/favicon.ico',
+        'app/index.html',
+        'app/robots.txt',
+        'app/css/main.css',
+        'app/js/main.js',
+        'app/js/page/default.js',
+        // test
+        'test/test-main.js'
+      ];
+
+      helpers.assertGeneratorMakesExpected(flight, expected, cb);
+    });
+  });
+
+  describe('flight:component', function () {
+    var flightComponent;
+
+    beforeEach(function (cb) {
+      var deps = ['../../lib/generators/component'];
+      flightComponent = helpers.createGenerator('flight:component', deps, ['my_component']);
+      cb();
+    });
+
+    it('runs sucessfully', function () {
+      flightComponent.run();
+    });
+
+    it('creates expected files', function (cb) {
+      var expected = [
+        ['app/js/component/my_component.js', /function myComponent()/],
+        ['test/spec/component/my_component.spec.js', /describeComponent\('component\/my_component/]
+      ];
+
+      helpers.assertGeneratorMakesExpected(flightComponent, expected, cb);
+    });
+  });
+
+  describe('flight:mixin', function () {
+    var flightMixin;
+
+    beforeEach(function (cb) {
+      var deps = ['../../lib/generators/mixin'];
+      flightMixin = helpers.createGenerator('flight:mixin', deps, ['my_mixin']);
+      cb();
+    });
+
+    it('runs sucessfully', function () {
+      flightMixin.run();
+    });
+
+    it('creates expected files', function (cb) {
+      var expected = [
+        ['app/js/component/with_my_mixin.js', /function withMyMixin()/],
+        ['test/spec/component/with_my_mixin.spec.js', /describeMixin\('component\/with_my_mixin/]
+      ];
+
+      helpers.assertGeneratorMakesExpected(flightMixin, expected, cb);
+    });
+  });
+
+  describe('flight:page', function () {
+    var flightPage;
+
+    beforeEach(function (cb) {
+      var deps = ['../../lib/generators/page'];
+      flightPage = helpers.createGenerator('flight:page', deps, ['foo']);
+      cb();
+    });
+
+    it('runs sucessfully', function () {
+      flightPage.run();
+    });
+
+    it('creates expected files', function (cb) {
+      var expected = [
+        'app/js/page/foo.js'
+      ];
+
+      helpers.assertGeneratorMakesExpected(flightPage, expected, cb);
+    });
+  });
+});
