@@ -41,6 +41,12 @@ define(function (require) {
       $table.html(this.content());
     };
 
+    this.fieldDisplay = function fieldDisplay(field) {
+        var display = field.display || (
+          field.name[0].toUpperCase() + field.name.slice(1));
+        return display;
+    };
+
     this.content = function content() {
       var output = [],
           columns = [];
@@ -48,21 +54,25 @@ define(function (require) {
         output.push('<tr>' + columns.join('') + '</tr>');
       }
       this.attr.fields.forEach(function(field) {
-        var display = field.display || (
-          field.name[0].toUpperCase() + field.name.slice(1));
-        columns.push('<th>' + display + '</th>');
-      });
+        columns.push('<th>' + this.fieldDisplay(field) + '</th>');
+      }, this);
+
+      output.push('<thead>');
       appendRow(columns);
+      output.push('</thead><tbody>')
+
       this.data.forEach(function(row) {
         columns = [];
         this.attr.fields.forEach(function(field) {
           var value = row[field.name];
           columns.push(
-            '<td>' + this.formatField(field.name, value) + '</td>');
+            '<td><dfn>' + this.fieldDisplay(field) + '</dfn>' + this.formatField(field.name, value) + '</td>');
         }, this);
         appendRow(columns);
       }, this);
-      return output;
+      output.push('</tbody>');
+
+      return output.join('');
     };
 
     this.setData = function setData(data) {

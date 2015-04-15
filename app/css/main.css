@@ -1,1 +1,53 @@
+body {
+	font-family: 'Source Sans Pro', Calibri, Candara, Arial, sans-serif;
+}
 
+
+/* tables */
+
+
+table tr {
+	margin-bottom: .75em; outline: thin solid red;
+}
+table tr th,
+table tr td {
+	font-weight: normal;
+}
+table tr th {
+	background: #444;
+	color:#fff;
+	display: none;
+}
+table tr td dfn {
+	color: blue;
+	display: inline-block;
+	font-style: normal;
+	margin-right: 1em;
+	min-width: 75px;
+	text-align: right;
+}
+#service_requests table {
+}
+
+@media screen and (max-width: 499px) {
+	table thead {
+		display: none;
+	}
+	table tr,
+	table tr th,
+	table tr td {
+		display: block;
+	}
+}
+
+@media screen and (min-width: 500px) {
+	table thead {
+	}
+	table tr th,
+	table tr td {
+		display: table-cell;
+	}
+	table tr td dfn {
+		display: none;
+	}
+}
